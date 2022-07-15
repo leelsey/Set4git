@@ -35,4 +35,7 @@ sh git-ignore.sh
 - Komodo Edit
 - Visual Studio Code
 - Sublime Text
-Get to https://www.toptal.com/developers/gitignore/
+
+It sourced by [Toptal](https://www.toptal.com/developers/gitignore).
+
+Visited and find more gitignore files in [gitignore.io](https://www.toptal.com/developers/gitignore).
