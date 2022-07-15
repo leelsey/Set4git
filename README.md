@@ -10,7 +10,7 @@
 ### 1) Initial git setup
 If you install new OS, try this:
 ```bash
-sh initial-git-set.sh
+sh initial-git.sh
 ```
 ### 2) Git configure
 If you only setup git basic configure, try this:

@@ -3,7 +3,7 @@ outputDone() {
 }
 
 gitInstall() {
-    echo '\nInstalling Git'
+    echo '\nInstalling Git with Git LFS'
     if [ "$(uname)" == "Darwin" ]; then
         brew update && brew install git git-lfs gh && git lfs install
     elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
@@ -21,7 +21,12 @@ gitInstall() {
 }
 
 gitInstall
+
 sh ./git-conf.sh
 outputDone
+
 sh ./git-ignore.sh
 outputDone
+
+echo '\n\n Check you config'
+cat ~/.gitconfig
