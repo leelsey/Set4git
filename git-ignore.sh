@@ -1,16 +1,13 @@
 globalIgrnoreFile() {
     mkdir -p ${ZDOTDIR:-~}/.config/git && touch ${ZDOTDIR:-~}/.config/git/gitignore_global && chmod 600 ${ZDOTDIR:-~}/.config/git/gitignore_global
-    echo '#   _______ __  ____ \n#  / ____(_) /_/  _/___ _____  ____  ________ \n# / / __/ / __// // __ `/ __ \\/ __ \\/ ___/ _ \\ \n#/ /_/ / / /__/ // /_/ / / / / /_/ / /  /  __/ \n#\\____/_/\\__/___/\\__, /_/ /_/\\____/_/   \\___/ \n#               /____/ \n#\n\n' >> ${ZDOTDIR:-~}/.config/git/gitignore_global
+    echo '#\n#   _______ __  ____ \n#  / ____(_) /_/  _/___ _____  ____  ________ \n# / / __/ / __// // __ `/ __ \\/ __ \\/ ___/ _ \\ \n#/ /_/ / / /__/ // /_/ / / / / /_/ / /  /  __/ \n#\\____/_/\\__/___/\\__, /_/ /_/\\____/_/   \\___/ \n#               /____/ \n#\n' >> ${ZDOTDIR:-~}/.config/git/gitignore_global
     git config --global --unset core.excludesfile
     git config --global core.excludesfile ${ZDOTDIR:-~}/.config/git/gitignore_global
 }
 
-ignoreDivider() {
-    echo '#====================' >> ${ZDOTDIR:-~}/.config/git/gitignore_global>
-}
-
 ignoreMac() {
-    echo '#### macOS ####
+    echo '#-------------#
+#### macOS ####
 
 # General
 .DS_Store
@@ -46,7 +43,9 @@ Temporary Items
 }
 
 ignoreLinux() {
-    echo '#### Linux ####
+    echo '#-------------#
+#### Linux ####
+
 *~
 
 # temporary files which can be created if a process still has a handle open of a deleted file
@@ -64,8 +63,8 @@ ignoreLinux() {
 }
 
 ignoreVim() {
-    ignoreDivider
-    echo '#### Vim ####
+    echo '#-----------#
+#### Vim ####
 
 # Swap
 [._]*.s[a-v][a-z]
@@ -90,8 +89,8 @@ tags
 }
 
 ignoreEmacs() {
-    ignoreDivider
-    echo '#### Emacs ####
+    echo '#-------------#
+#### Emacs ####
 
 # -*- mode: gitignore; -*-
 *~
@@ -145,8 +144,8 @@ flycheck_*.el
 }
 
 ignoreXcode() {
-    ignoreDivider
-    echo '#### Xcode ####
+    echo '#--------------#
+ #### Xcode ####
 
 # User settings
 xcuserdata/
@@ -166,8 +165,9 @@ xcuserdata/
 }
 
 ignoreIntelliJ() {
-    ignoreDivider
-    echo '#### IntelliJ ####
+    echo '#----------------#
+#### IntelliJ ####
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
@@ -280,9 +280,9 @@ fabric.properties
 }
 
 ignoreAndroidStudio() {
-    ignoreDivider
-    echo '#### Android Studio ####
-### AndroidStudio ###
+    echo '#----------------------#
+#### Android Studio ####
+
 # Covers files to be ignored for android development using Android Studio.
 
 # Built application files
@@ -416,8 +416,8 @@ fabric.properties
 }
 
 ignoreEclipse() {
-    ignoreDivider
-    echo '#### Eclipse ####
+    echo '#---------------#
+#### Eclipse ####
 
 .metadata
 bin/
@@ -487,16 +487,17 @@ local.properties
 }
 
 ignoreKomodo() {
-    ignoreDivider
-    echo '#### Komodo ####
+    echo '#--------------#
+#### Komodo ####
+
 *.komodoproject
 .komodotools
 \n\n' >> ${ZDOTDIR:-~}/.config/git/gitignore_global
 }
 
 ignoreVSC() {
-    ignoreDivider
-    echo '#### VisualStudioCode ####
+    echo '#------------------------#
+#### VisualStudioCode ####
 
 .vscode/*
 !.vscode/settings.json
@@ -526,8 +527,8 @@ ignoreVSC() {
 }
 
 ignoreSublimeText() {
-    ignoreDivider
-    echo '#### SublimeText ####
+    echo '#-------------------#
+#### SublimeText ####
 
 # Cache files for Sublime Text
 *.tmlanguage.cache
@@ -563,21 +564,28 @@ GitHub.sublime-settings
 \n\n' >> ${ZDOTDIR:-~}/.config/git/gitignore_global
 }
 
+main() {
+    if [ "$(uname)" == "Darwin" ]; then
+        ignoreMac
+        ignoreXcode
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+        ignoreLinux
+    fi
+    ignoreVim
+    ignoreEmacs
+    ignoreIntelliJ
+    ignoreAndroidStudio
+    ignoreEclipse
+    ignoreKomodo
+    ignoreVSC
+    ignoreSublimeText
+}
+
 echo '\n\nSetup git ignore files & directories'
 echo ' 1) Make gitignore_global on ~/.config/git/gitignore_global'
+if [ -f "$HOME/.config/git/gitignore_global" ]; then
+    rm -f $HOME/.config/git/gitignore_global
+fi
 globalIgrnoreFile
 echo ' 2) Add your ignore files'
-if [ "$(uname)" == "Darwin" ]; then
-    ignoreMac
-    ignoreXcode
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    ignoreLinux
-fi
-ignoreVim
-ignoreEmacs
-ignoreIntelliJ
-ignoreAndroidStudio
-ignoreEclipse
-ignoreKomodo
-ignoreVSC
-ignoreSublimeText
+main
