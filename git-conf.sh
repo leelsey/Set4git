@@ -1,5 +1,5 @@
 echo '\n\nInitializing Git'
-echo ' 1) Main branch setup master -> main'
+echo ' 1) Main branch default name changed master -> main'
 git config --global init.defaultBranch main
 echo ' 2) Add your information'
 read -p "  • User name: " userName
