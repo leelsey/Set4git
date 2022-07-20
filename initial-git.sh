@@ -21,12 +21,9 @@ gitInstall() {
 }
 
 gitInstall
-
 sh ./git-conf.sh
 outputDone
-
 sh ./git-ignore.sh
 outputDone
-
-echo '\n\n Check you config'
+echo '\n\nCheck your git config'
 cat ~/.gitconfig
