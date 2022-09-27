@@ -5,7 +5,7 @@ outputDone() {
 gitInstall() {
     echo '\nInstalling Git with Git LFS'
     if [ "$(uname)" == "Darwin" ]; then
-        brew update && brew install git git-lfs gh && git lfs install
+        brew update && brew install git git-lfs gh
     elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
         if [ -x "$(command -v apt-get)" ]; then
             sudo apt-get update && sudo apt-get install -y git git-lfs gh
