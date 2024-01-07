@@ -1,7 +1,7 @@
 Write-Host "`nConfiguring Git"
 Write-Host " 1) Git configuration for user and email"
-$gitUserName = Read-Host "  • User name: "
-$gitUserEmail = Read-Host "  • User email: "
+$gitUserName = Read-Host "  • User name"
+$gitUserEmail = Read-Host "  • User email"
 git config --unset --global user.name
 git config --unset --global user.email
 git config --global user.name "$gitUserName"
