@@ -1,5 +1,5 @@
 # Set4git
-### Quickely setup your git
+Setup your git environment quickly.
 
 ## Usage
 ### Get Set4git
